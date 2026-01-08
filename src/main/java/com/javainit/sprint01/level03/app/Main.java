@@ -12,7 +12,7 @@ public static void main(String[] args) {
 }
 
 private static void demoDirectNewsCalculations() {
-    F1News n1 = new F1News("Hamilton rumors", "Mercedes");
+    F1News n1 = new F1News("Some title", "Mercedes");
     System.out.println("Price: " + n1.calculatePrice());
     System.out.println("Score: " + n1.calculateScore());
 
@@ -25,6 +25,12 @@ private static void demoServiceFlow() {
         NewsroomService service = new NewsroomService();
         String dni = "12345678A";
         Editor ana = new Editor(dni, "Ana");
+        service.addEditor(ana);
+
+        String title = "MotoGP test";
+        service.addNewsToEditor(dni, new MotoGPNews(title,"Honda"));
+    System.out.println(service.listNews(dni));
+
         boolean added = service.addEditor(ana);
         if (!added) {
             System.out.println("Editor already exists.");
@@ -32,8 +38,10 @@ private static void demoServiceFlow() {
 
         }
 
-        service.addNewsToEditor("123456789A", new MotoGPNews("MotoGP test", "Honda"));
-
+        boolean addedNews = service.addNewsToEditor(dni, new MotoGPNews("MotoGP test", "Honda"));
+        if (!addedNews) {
+            System.out.println("Could not add news: editor not found for dni =" + dni);
+        }
         System.out.println(service.listNews(dni));
 
         Double price = service.calculatePrice(dni, "MotoGP test");

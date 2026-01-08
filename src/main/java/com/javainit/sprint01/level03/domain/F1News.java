@@ -11,6 +11,7 @@ public final class F1News extends News {
     public String getTeam() {
         return team;
     }
+
     @Override
     public double calculatePrice() {
         double result = 100.0;
